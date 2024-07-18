@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  api:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./api:/app
+    command: sh -c "npm install && npm start"
+    ports:
+      - "3333:3333"
+    environment:
+      NODE_ENV: production
+      PORT: 3333
+
+  ui:
+    image: node:18
+    working_dir: /app
+    volumes:
+      - ./ui:/app
+    command: sh -c "ls && npm install && npm run build && npm start"
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      API_URL: http://api:3333
